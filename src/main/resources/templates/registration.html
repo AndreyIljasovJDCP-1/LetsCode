@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head >
+    <th:block th:replace="~{fragment/head :: bootstrap-head}"></th:block>
+    <title>Spring Security Registration page</title>
+</head>
+
+<body>
+<main class="container pt-5">
+    <div class="container col-4 justify-content-center mt-5">
+        <div th:if="${message}" class="d-flex mt-3">
+            <p class="text-danger" th:text="${message}"></p>
+        </div>
+        <h4 class="text-success"> Регистрация пользователя</h4>
+
+        <form th:action="@{/registration}" method="post">
+            <div class="form-group">
+                <label class="form-control-label" for="username_id">User Name: </label>
+                <input type="text"
+                       class="form-control" id="username_id"
+                       placeholder="Enter username"
+                       name="username" required>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" for="password_id">Password: </label>
+                <input type="password"
+                       class="form-control" id="password_id"
+                       placeholder="Enter password"
+                       name="password" required>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success">Sign Up</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

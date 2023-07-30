@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragment/head :: bootstrap-head}"></th:block>
+    <title>Spring Security Login page </title>
+</head>
+<body>
+<main class="container pt-5">
+    <div class="container col-4 justify-content-center mt-5">
+        <h4 th:if="${param.error}" class="text-danger">
+            Invalid username or password.
+        </h4>
+        <h4 th:if="${param.logout}" class="text-info">
+            You have been logged out.
+        </h4>
+        <h4 class="text-success"> Авторизация пользователя</h4>
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label class="form-control-label" for="username_id">User Name: </label>
+                <input type="text"
+                       class="form-control" id="username_id"
+                       placeholder="Enter User Name" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password: </label>
+                <input type="text"
+                       class="form-control" id="pwd"
+                       placeholder="Enter password"
+                       name="password" required>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success">Sign In</button>
+        </form>
+    </div>
+</main>
+<script th:replace="~{fragment/scripts :: scripts-bs-4-1}"></script>
+<script th:replace="~{fragment/scripts :: scripts-bs-4-2}"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <th:block th:replace="~{fragment/head :: bootstrap-head}"></th:block>
+    <title>Main page</title>
+</head>
+<body style="background: black;">
+<header th:insert="~{fragment/navbar :: navbar-bs-4}"></header>
+<main class="container pt-5">
+    <div class="container col-10 mt-5">
+        <h3 class="container text-center text-success mb-4">
+            Список сообщений
+        </h3>
+        <div class="card-columns" th:if="!${#lists.isEmpty(messages)}">
+            <div class="card my-2 bg-dark border-primary"
+                 th:each="message: ${messages}">
+                <div class="card-header border-primary text-muted text-white-50"
+                     th:text="'ID: '+${message.id}">
+                    Featured
+                </div>
+                <div th:if="${message.filename}">
+                    <img class="card-img-top text-white-50" alt="<no image>"
+                         th:src="@{/img/{file}(file=${message.filename})}"
+                         style="max-height:200px;">
+                </div>
+                <div class="card-body border-primary bg-dark text-info m-2">
+                    <h5 class="card-title" th:text="${message.tag}"></h5>
+                    <p class="card-text" th:text="${message.text}"></p>
+                </div>
+                <div class="card-footer bg-dark text-muted text-white-50 border-primary">
+                    <span th:text="${message.authorName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3" th:if="${#lists.isEmpty(messages)}">
+            <h4 class="text-center text-danger">No messages</h4>
+        </div>
+    </div>
+    <div class="container col-10">
+        <h4 class="container text-center text-success p-2">
+            Добавить сообщение
+        </h4>
+        <form id="form-addMess" th:action="@{/mainCards}" method="post" enctype="multipart/form-data">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-column">
+                        <textarea class="form-control bg-dark text-white-50"
+                                  id="id-mess"
+                                  name="text"
+                                  placeholder="Введите сообщение"
+                                  rows="3"
+                                  cols="35"
+                                  required></textarea>
+                </div>
+                <div class="d-flex align-items-end flex-column">
+                    <div class="form-group">
+                        <label for="id-tag" class="text-info mr-4">Введите тэг: </label>
+                        <input class="form-control-input bg-dark text-white-50"
+                               id="id-tag"
+                               type="text" name="tag" placeholder="Тэг"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control-file bg-dark text-info"
+                               id="id-file"
+                               type="file" name="file">
+                    </div>
+                </div>
+                <div class="d-flex d-flex-column align-items-end">
+                    <div class="form-group">
+                        <button class="btn btn-primary"
+                                type="submit"
+                                form="form-addMess">
+                            Add message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</main>
+<footer th:replace="~{fragment/footer :: footer-bs-4}"></footer>
+</body>
+</html>

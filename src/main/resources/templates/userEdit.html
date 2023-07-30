@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <th:block th:replace="~{fragment/head :: bootstrap-head}"></th:block>
+    <title>Edit page</title>
+</head>
+<body style="background: black;">
+<header th:insert="~{fragment/navbar :: navbar-bs-4}"></header>
+<main class="container pt-5">
+    <div class="container col-4 justify-content-center mt-5">
+        <h4 class="text-center text-primary mb-4">Редактировать данные пользователя:
+            <span th:text="${user.username}" class="text-success">thymeleaf</span>
+        </h4>
+        <div class="d-flex d-flex-row justify-content-center">
+            <form th:action="@{/user}" method="post" id="form-id">
+                <div class="form-group">
+                    <label for="username_id" class="text-white-50">Username: </label>
+                    <input class="form-control bg-dark text-warning"
+                           id="username_id"
+                           type="text"
+                           name="username"
+                           th:value="${user.username}">
+                    <input type="hidden"
+                           th:value="${user.id}"
+                           name="userId">
+                </div>
+                <div class="form-group">
+                    <label for="selectRoles" class="text-white-50">Select roles: </label>
+                    <select class="form-control bg-dark text-warning" id="selectRoles"
+                            name="roles" th:size="${roles.size()}" required multiple>
+                        <option th:each="role:${roles}"
+                                th:value="${role.name}"
+                                th:text="${role.name}"
+                                th:selected="${user.roles.contains(role)}?'selected'">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success col-12" type="submit">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragment/footer :: footer-bs-4}"></footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <th:block th:replace="~{fragment/head :: bootstrap-head}"></th:block>
+    <title>User List</title>
+</head>
+<body style="background: black;">
+<header th:insert="~{fragment/navbar :: navbar-bs-4}"></header>
+<main class="container pt-5">
+    <div class="container col-8 mt-5">
+        <h3 class="container text-center text-success mb-4">
+            Список пользователей
+        </h3>
+        <div th:if="!${#lists.isEmpty(users)}" class="d-flex justify-content-center">
+            <table class="table table-bordered table-hover table-responsive-md table-dark text-white-50">
+                <thead>
+                <tr class="bg-primary text-white">
+                    <td>ID</td>
+                    <td>Username</td>
+                    <td>Roles</td>
+                    <td>Edit</td>
+                </tr>
+                </thead>
+                <tbody th:each="user: ${users}">
+                <tr class="text-white-50">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <!--            <td th:text="${user.roles}"></td>-->
+                    <td th:text="${user.getRolesAsString()}"></td>
+                    <td><a th:href="@{/user/{id}(id=${user.id})}">edit</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container mt-3" th:if="${#lists.isEmpty(users)}">
+            <h4 class="text-center text-danger">No users</h4>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragment/footer :: footer-bs-4}"></footer>
+</body>
+</html>
